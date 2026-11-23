@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+*.pyo
+DOKUMENTASI/_cg_dump.txt
+DOKUMENTASI/inspect_dead.py
+DOKUMENTASI/inspect_trial.py
+.DS_Store
+Thumbs.db
