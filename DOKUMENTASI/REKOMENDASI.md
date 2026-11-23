@@ -69,9 +69,10 @@ Saat Anda kirim detail brand, titik yang perlu diubah:
 
 ## 4. Arsitektur & Packaging
 
-### P2 — Integrasikan menu lokasi database ke Pengaturan
-- Sekarang panel "Lokasi Database" masih melayang di luar React.
-- Rekomendasi: pindahkan ke halaman **Profil & Pengaturan Toko** sebagai kartu menu. Perlu patch komponen `Tb` (sekitar baris 16688–17106 di `main.pretty.js`).
+### ✅ SUDAH — Integrasi menu lokasi database
+- Kartu **"Lokasi Database"** sudah ditambahkan ke halaman **Menu Lainnya** (patch `apply_menu_patch.py`).
+- Panel melayang sudah dihapus; kartu membuka modal dari `app\storage-ui.js`.
+- Rekomendasi lanjutan: bisa juga ditaruh di halaman **Profil & Pengaturan Toko** bila diinginkan.
 
 ### P2 — Launcher desktop
 - Mengganti nama file `.exe` + referensi di `.bat` itu mudah.

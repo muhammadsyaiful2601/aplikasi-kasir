@@ -127,13 +127,15 @@ Mengganti semuanya sekaligus bisa membuat **data lama tidak terbaca** atau **bac
 - Saat pertama kali memilih file, data lama dari IndexedDB **otomatis dipindahkan** ke file baru.
 - Logika bisnis (SQL, repositori, React) **tidak diubah** — hanya lapisan penyimpanannya.
 
-### 7.2 Panel "Lokasi Database" ✅
-- File baru: `app\storage-ui.js`, dimuat dari `app\index.html`.
-- Panel kecil di sisi kiri bawah. Klik untuk:
-  - **Pilih / Ganti Lokasi…** → memilih file database (`*.fdb`).
-  - **Kembali ke Browser** → pakai IndexedDB lagi.
-  - **Perbarui Status** → melihat mode, nama file, jumlah entri.
-- Setelah memilih file, **muat ulang halaman** agar adapter memakai file sejak awal.
+### 7.2 Menu "Lokasi Database" ✅ (sudah terintegrasi)
+- Kartu baru **"Lokasi Database"** ada di halaman **Menu Lainnya**, di bawah "Backup & Pemulihan Data".
+- Kartu membuka **modal** (panel melayang sudah dihapus). Isi modal:
+  - Status penyimpanan: mode, nama file, jumlah entri
+  - **Pilih / Ganti Lokasi…** → memilih file database
+  - **Kembali ke Browser** → pakai IndexedDB lagi
+  - **Tutup** (tombol ×, Esc, atau klik di luar modal)
+- File terkait: `app\storage-ui.js` (modal) + patch `DOKUMENTASI\apply_menu_patch.py`.
+- Setelah memilih file, **muat ulang aplikasi** agar adapter memakai file sejak awal.
 
 ### 7.3 Preview server (tanpa build) ✅
 - Folder baru: `PREVIEW\` berisi `server.js`, `jalankan-preview.bat`, `README.md`.
@@ -167,7 +169,6 @@ Lalu hapus baris `<script src="/storage-ui.js"></script>` dari `app\index.html`.
 
 ### 7.7 Yang BELUM dikerjakan
 - Mengganti identitas brand (nama, warna, logo, nomor WA, toko default).
-- Mengintegrasikan menu lokasi database ke dalam halaman Pengaturan aplikasi (sekarang masih panel melayang).
 - Membangun ulang `.exe` launcher bila diperlukan.
 
 ---

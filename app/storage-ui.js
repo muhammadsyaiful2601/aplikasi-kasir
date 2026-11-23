@@ -1,5 +1,5 @@
-/* Panel kecil untuk mengatur lokasi penyimpanan database.
-   Dimuat sebelum bundle utama. Tidak mengubah logika aplikasi. */
+/* Modal "Lokasi Database" — dipanggil dari kartu menu di halaman Menu Lainnya.
+   Tidak mengubah logika aplikasi. */
 (function () {
   function waitForStorage(cb, tries) {
     if (window.__firdausStorage) return cb(window.__firdausStorage);
@@ -14,97 +14,125 @@
     return e;
   }
 
-  waitForStorage(function (S) {
-    var wrap = el("div", "position:fixed;left:10px;bottom:78px;z-index:9999;font-family:system-ui,sans-serif;");
+  var overlay = null;
+  var S = null;
+
+  function close() {
+    if (overlay && overlay.parentNode) overlay.parentNode.removeChild(overlay);
+    overlay = null;
+    document.removeEventListener("keydown", onKey);
+  }
+  function onKey(e) { if (e.key === "Escape") close(); }
+
+  function button(label, bg, onClick) {
+    var b = el("button",
+      "flex:1;border:0;border-radius:8px;padding:10px 12px;" +
+      "background:" + bg + ";color:#fff;font-size:12px;font-weight:700;" +
+      "cursor:pointer;transition:opacity .15s;", label);
+    b.onmouseenter = function () { b.style.opacity = ".85"; };
+    b.onmouseleave = function () { b.style.opacity = "1"; };
+    b.onclick = onClick;
+    return b;
+  }
+
+  function build() {
+    overlay = el("div",
+      "position:fixed;inset:0;z-index:10000;background:rgba(15,23,42,.55);" +
+      "display:flex;align-items:center;justify-content:center;padding:20px;");
+
+    var card = el("div",
+      "background:#fff;border-radius:18px;width:100%;max-width:460px;" +
+      "box-shadow:0 20px 60px rgba(0,0,0,.3);overflow:hidden;font-family:system-ui,sans-serif;");
+
+    var head = el("div",
+      "padding:18px 20px 14px;border-bottom:1px solid #e2e8f0;" +
+      "display:flex;align-items:center;justify-content:space-between;");
+    head.appendChild(el("div", "font-size:15px;font-weight:800;color:#0f172a;", "Lokasi Database"));
+    var x = el("button", "border:0;background:transparent;font-size:20px;color:#64748b;cursor:pointer;line-height:1;", "×");
+    x.onclick = close;
+    head.appendChild(x);
+    card.appendChild(head);
+
+    var body = el("div", "padding:18px 20px;");
+
+    var statusBox = el("div",
+      "background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;" +
+      "padding:12px 14px;font-size:12px;color:#334155;line-height:1.7;margin-bottom:14px;");
+    body.appendChild(statusBox);
+
+    var msg = el("div", "font-size:11px;min-height:16px;margin-bottom:12px;color:#b91c1c;");
+    body.appendChild(msg);
+
     var info = el("div",
-      "background:#0f172a;color:#e2e8f0;border-radius:10px;padding:8px 11px;font-size:11px;" +
-      "box-shadow:0 4px 18px rgba(0,0,0,.28);max-width:250px;line-height:1.5;cursor:pointer;");
-    info.textContent = "Database: memeriksa…";
-    wrap.appendChild(info);
+      "background:#fffbeb;border:1px solid #fde68a;border-radius:10px;" +
+      "padding:10px 12px;font-size:11px;color:#92400e;line-height:1.6;margin-bottom:14px;",
+      "Pilih file untuk menyimpan database. Data lama di browser akan otomatis dipindahkan. " +
+      "Gunakan Chrome/Edge dan buka lewat http://localhost agar fitur ini tersedia.");
+    body.appendChild(info);
 
-    var panel = el("div",
-      "display:none;background:#fff;border:1px solid #cbd5e1;border-radius:10px;padding:10px;" +
-      "margin-bottom:6px;width:250px;box-shadow:0 6px 24px rgba(0,0,0,.25);");
-    var title = el("div", "font-weight:700;font-size:12px;color:#0f172a;margin-bottom:6px;", "LOKASI DATABASE");
-    panel.appendChild(title);
+    var row = el("div", "display:flex;gap:8px;");
+    row.appendChild(button("Pilih / Ganti Lokasi…", "#2563eb", function () {
+      msg.style.color = "#64748b";
+      msg.textContent = "Membuka dialog pemilih file…";
+      S.pickLocation().then(function (r) {
+        msg.style.color = "#15803d";
+        msg.textContent = "Berhasil: " + r.name + " (" + r.keys + " entri). Muat ulang aplikasi.";
+        refresh();
+      }).catch(function (e) {
+        msg.style.color = "#b91c1c";
+        msg.textContent = e.name === "AbortError" ? "Dibatalkan." : "Gagal: " + e.message;
+      });
+    }));
+    row.appendChild(button("Kembali ke Browser", "#64748b", function () {
+      S.resetToBrowser().then(function () {
+        msg.style.color = "#15803d";
+        msg.textContent = "Kembali ke mode browser. Muat ulang aplikasi.";
+        refresh();
+      }).catch(function (e) {
+        msg.style.color = "#b91c1c";
+        msg.textContent = "Gagal: " + e.message;
+      });
+    }));
+    body.appendChild(row);
 
-    var detail = el("div", "font-size:11px;color:#475569;margin-bottom:8px;line-height:1.5;", "");
-    panel.appendChild(detail);
+    var footer = el("div", "padding:0 20px 18px;text-align:right;");
+    var tutup = el("button",
+      "border:1px solid #cbd5e1;background:#fff;color:#475569;" +
+      "border-radius:8px;padding:8px 16px;font-size:12px;font-weight:700;cursor:pointer;",
+      "Tutup");
+    tutup.onclick = close;
+    footer.appendChild(tutup);
+    card.appendChild(body);
+    card.appendChild(footer);
 
-    var status = el("div", "font-size:11px;color:#b91c1c;margin-bottom:8px;min-height:14px;", "");
-    panel.appendChild(status);
-
-    function btn(label, bg) {
-      var b = el("button",
-        "display:block;width:100%;border:0;border-radius:7px;padding:7px 9px;margin-top:5px;" +
-        "background:" + bg + ";color:#fff;font-size:11px;font-weight:600;cursor:pointer;");
-      b.textContent = label;
-      return b;
-    }
-
-    var bPilih = btn("Pilih / Ganti Lokasi…", "#2563eb");
-    var bBrowser = btn("Kembali ke Browser", "#64748b");
-    var bRefresh = btn("Perbarui Status", "#0f766e");
-    panel.appendChild(bPilih);
-    panel.appendChild(bBrowser);
-    panel.appendChild(bRefresh);
-
-    wrap.appendChild(panel);
-    document.body.appendChild(wrap);
-
-    function render(i) {
-      if (i.mode === "file") {
-        info.textContent = "📁 Database: " + (i.name || "file terhubung") + " (" + i.keys + " data)";
-        detail.innerHTML =
-          "<b>Mode:</b> File di lokasi pilihan<br>" +
-          "<b>Nama file:</b> " + (i.name || "-") + "<br>" +
-          "<b>Data tersimpan:</b> " + i.keys + " entri";
-      } else {
-        info.textContent = "🌐 Database: Browser (klik untuk atur file)";
-        detail.innerHTML =
-          "<b>Mode:</b> Browser / IndexedDB<br>" +
-          "<b>Catatan:</b> data masih tersimpan di profil browser. " +
-          "Klik tombol pertama untuk memilih file database." +
-          (i.canUseFile ? "" : "<br><b style='color:#b91c1c'>Browser tidak mendukung file picker. Gunakan Chrome/Edge desktop.</b>");
-      }
-    }
+    overlay.appendChild(card);
+    overlay.onclick = function (e) { if (e.target === overlay) close(); };
+    document.body.appendChild(overlay);
+    document.addEventListener("keydown", onKey);
 
     function refresh() {
-      S.getInfo().then(render).catch(function (e) {
-        status.textContent = "Gagal membaca status: " + e.message;
+      S.getInfo().then(function (i) {
+        statusBox.innerHTML =
+          "<b>Mode penyimpanan:</b> " + (i.mode === "file" ? "File" : "Browser / IndexedDB") + "<br>" +
+          "<b>Nama file:</b> " + (i.name || "-") + "<br>" +
+          "<b>Data tersimpan:</b> " + i.keys + " entri" +
+          (i.canUseFile ? "" : "<br><b style='color:#b91c1c'>Browser tidak mendukung file picker.</b>");
+      }).catch(function (e) {
+        statusBox.textContent = "Gagal membaca status: " + e.message;
       });
     }
-
-    info.addEventListener("click", function () {
-      panel.style.display = panel.style.display === "block" ? "none" : "block";
-      if (panel.style.display === "block") refresh();
-    });
-
-    bRefresh.addEventListener("click", refresh);
-
-    bPilih.addEventListener("click", function () {
-      status.textContent = "Membuka dialog pemilih file…";
-      S.pickLocation().then(function (r) {
-        status.style.color = "#15803d";
-        status.textContent = "Berhasil: " + r.name + " (" + r.keys + " entri dipindahkan). Muat ulang halaman.";
-        refresh();
-      }).catch(function (e) {
-        status.style.color = "#b91c1c";
-        status.textContent = e.name === "AbortError" ? "Dibatalkan." : "Gagal: " + e.message;
-      });
-    });
-
-    bBrowser.addEventListener("click", function () {
-      S.resetToBrowser().then(function () {
-        status.style.color = "#15803d";
-        status.textContent = "Kembali ke mode browser. Muat ulang halaman.";
-        refresh();
-      }).catch(function (e) {
-        status.style.color = "#b91c1c";
-        status.textContent = "Gagal: " + e.message;
-      });
-    });
-
     refresh();
-  });
+  }
+
+  window.__openDbSettings = function () {
+    if (overlay) close();
+    waitForStorage(function (s) {
+      if (!s) {
+        alert("Modul penyimpanan belum siap. Silakan muat ulang halaman.");
+        return;
+      }
+      S = s;
+      build();
+    });
+  };
 })();

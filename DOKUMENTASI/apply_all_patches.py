@@ -14,6 +14,7 @@ sys.path.insert(0, os.path.join(BASE, "DOKUMENTASI"))
 
 import apply_storage_patch  # noqa: F401  (modul ini langsung menulis saat di-import)
 import apply_trial_patch
+import apply_menu_patch
 
 bundle = os.path.join(BASE, "app", "assets", "main-DbOgN5j6.js")
 src = open(bundle, encoding="utf-8").read()
@@ -23,4 +24,9 @@ open(bundle, "w", encoding="utf-8").write(out)
 print("=== Patch trial ===")
 for c in changes:
     print(" -", c)
+
+out = apply_menu_patch.patch(out)
+print(" - menu 'Lokasi Database' ditambahkan ke halaman Menu Lainnya")
+
+open(bundle, "w", encoding="utf-8").write(out)
 print("Ukuran final:", len(out), "byte")
