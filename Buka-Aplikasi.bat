@@ -1,12 +1,12 @@
 @echo off
-title Firdaus Servis - Kasir & POS
+title Aplikasi Kasir - Kasir & POS
 cd /d "%~dp0"
 
-if exist "FirdausServis.exe" (
-    start "" "FirdausServis.exe"
+if exist "AplikasiKasir.exe" (
+    start "" "AplikasiKasir.exe"
     exit /b
 )
 
-echo Membuka Firdaus Servis...
+echo Membuka Aplikasi Kasir...
 start "" "app\index.html"
 exit /b

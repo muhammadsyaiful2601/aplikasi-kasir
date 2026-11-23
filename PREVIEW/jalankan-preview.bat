@@ -1,5 +1,5 @@
 @echo off
-title FirdausServis - PREVIEW (dev server)
+title Aplikasi Kasir - PREVIEW (dev server)
 cd /d "%~dp0.."
 
 echo.

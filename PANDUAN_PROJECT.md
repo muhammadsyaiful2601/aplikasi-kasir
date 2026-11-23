@@ -8,12 +8,12 @@ Folder ini adalah **salinan persis** dari aplikasi asli `D:\bongkar kode`.
 ## 1. Cara menjalankan di Desktop (sekarang, kondisi base)
 
 1. Buka folder `PROJECT_BASE` di Windows Explorer.
-2. **Double-click `FirdausServis.exe`** — atau --
+2. **Double-click `AplikasiKasir.exe`** — atau --
    **Double-click `Buka-Aplikasi.bat`** (jika EXE tidak ada, script membuka `app\index.html` sebagai fallback).
 3. Aplikasi muncul sebagai **jendela mandiri tanpa address bar**, dengan ikon di system tray.
    - Klik kanan ikon tray: *Buka Aplikasi* / *Buka di Browser Biasa* / *Keluar Aplikasi*.
 
-> Catatan: `FirdausServis.exe` adalah launcher .NET kecil (~14 KB) yang menyalakan HTTP server lokal lalu membuka browser. Jadi yang berjalan sebenarnya tetap **aplikasi web di `app\`**, bukan native binary.
+> Catatan: `AplikasiKasir.exe` adalah launcher .NET kecil (~14 KB) yang menyalakan HTTP server lokal lalu membuka browser. Jadi yang berjalan sebenarnya tetap **aplikasi web di `app\`**, bukan native binary.
 
 ---
 
@@ -22,7 +22,7 @@ Folder ini adalah **salinan persis** dari aplikasi asli `D:\bongkar kode`.
 ```
 PROJECT_BASE
 ├── PANDUAN_PROJECT.md          ← berkas ini (baca dulu)
-├── FirdausServis.exe           launcher desktop (.NET WinForms)
+├── AplikasiKasir.exe           launcher desktop (.NET WinForms)
 ├── Buka-Aplikasi.bat           script peluncur + fallback
 ├── CARA_PENGGUNAAN_PC.txt      panduan pengguna lama (brand lama)
 ├── app.ico                     ikon Windows 64×64
@@ -33,7 +33,7 @@ PROJECT_BASE
 │   ├── logo.png / favicon.png  ikon 192×192 (file identik)
 │   ├── sql-wasm.wasm           mesin SQLite/WASM (cadangan)
 │   ├── sql-wasm-browser.wasm   mesin SQLite/WASM (utama, identik)
-│   ├── firdausservis.apk       versi Android — TIDAK dipakai untuk desktop
+│   ├── aplikasi-kasir.apk       versi Android — TIDAK dipakai untuk desktop
 │   └── assets\
 │       ├── main-*.js           SELURUH logika aplikasi (minified, 553 KB)
 │       ├── main-*.css          gaya Tailwind (86,5 KB)
@@ -69,11 +69,11 @@ Semua ada di `DOKUMENTASI\main.pretty.js` (nomor baris sesuai laporan):
 
 | Yang dicari | Baris perkiraan | Catatan |
 |---|---|---|
-| Nama toko default & demo | ~8386 | `"Firdaus Servis"`, `"DEMO FIRDAUS SERVIS"` |
-| Judul splash & error DB | ~17235 | `"Memuat FirdausServis..."`, `"Gagal Membuka Database"` |
-| Footer pengembang | ~17088 | `"FirdausServis (Full Version Terdaftar) — Dikembangkan oleh Firdaus Web"` |
-| Link & pesan WhatsApp penjualan | ~8372 | `wa.me/6287810851738`, teks "Firdaus Web…lisensi" |
-| Secret lisensi | ~8588 | `FIRDAUS_WEB_OFFLINE_LICENSE_PUB_2026` |
+| Nama toko default & demo | ~8386 | `"Aplikasi Kasir"`, `"DEMO APLIKASI KASIR"` |
+| Judul splash & error DB | ~17235 | `"Memuat AplikasiKasir..."`, `"Gagal Membuka Database"` |
+| Footer pengembang | ~17088 | `"AplikasiKasir (Full Version Terdaftar) — Dikembangkan oleh Aplikasi Kasir"` |
+| Link & pesan WhatsApp penjualan | ~8372 | `wa.me/6287810851738`, teks "Aplikasi Kasir…lisensi" |
+| Secret lisensi | ~8588 | `APLIKASI_KASIR_OFFLINE_LICENSE_PUB_2026` |
 | Teks trial & watermark nota | ~11562, ~10461, ~10820 | countdown, "Beli Resmi", watermark TIDAK SAH |
 | Prefiks nomor nota | ~8433, ~8493 | `FS-` (servis) dan `TRX-` (kasir) — opsional |
 
@@ -81,7 +81,7 @@ Semua ada di `DOKUMENTASI\main.pretty.js` (nomor baris sesuai laporan):
 Nama "Firdaus/firdausservis" juga dipakai sebagai:
 - nama database & kunci IndexedDB (`firdausservis_offline_idb`, `firdausservis_db`)
 - kunci localStorage (`firdaus_trial_session_start`, `firdaus_custom_service_templates_*`)
-- field `app` pada file backup (`"FirdausServis"`)
+- field `app` pada file backup (`"AplikasiKasir"`)
 
 Mengganti semuanya sekaligus bisa membuat **data lama tidak terbaca** atau **backup lama gagal dipulihkan**. Setiap perubahan harus dipertimbangkan satu per satu.
 
@@ -104,7 +104,7 @@ Mengganti semuanya sekaligus bisa membuat **data lama tidak terbaca** atau **bac
 1. Anda **menuliskan perubahan** yang Anda inginkan (boleh bertahap).
 2. Saya **menjelaskan dampaknya** dan menyusun daftar file/baris yang akan disentuh — **belum menulis kode** sampai Anda konfirmasi.
 3. Setelah Anda bilang "oke, kerjakan", baru saya ubah file di folder `PROJECT_BASE` (file asli di `D:\bongkar kode` tetap saya biarkan apa adanya).
-4. Setiap perubahan bisa diuji langsung dengan double-click `FirdausServis.exe`.
+4. Setiap perubahan bisa diuji langsung dengan double-click `AplikasiKasir.exe`.
 
 ---
 

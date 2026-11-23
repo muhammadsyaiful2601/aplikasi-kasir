@@ -71,11 +71,14 @@ class dh {
   static canUseFile() {
     return typeof window !== "undefined" && typeof window.showSaveFilePicker === "function";
   }
-  static _metaDb() {
+  static _legacyKey(key) {
+    return key.replace("aplikasikasir_", "firdausservis_");
+  }
+  static _metaDb(legacy) {
     return new Promise(resolve => {
       if (typeof window === "undefined" || !window.indexedDB) return resolve(null);
       try {
-        const req = window.indexedDB.open("firdaus_filedb_meta", 1);
+        const req = window.indexedDB.open(legacy ? "firdaus_filedb_meta" : "aplikasikasir_filedb_meta", 1);
         req.onupgradeneeded = () => {
           const db = req.result;
           if (!db.objectStoreNames.contains("handles")) db.createObjectStore("handles");
@@ -85,8 +88,7 @@ class dh {
       } catch { resolve(null); }
     });
   }
-  static async getHandle() {
-    const db = await dh._metaDb();
+  static async _readHandle(db) {
     if (!db) return null;
     return new Promise(res => {
       try {
@@ -95,6 +97,11 @@ class dh {
         q.onerror = () => res(null);
       } catch { res(null); }
     });
+  }
+  static async getHandle() {
+    let h = await dh._readHandle(await dh._metaDb(false));
+    if (!h) h = await dh._readHandle(await dh._metaDb(true));
+    return h;
   }
   static async setHandle(h) {
     const db = await dh._metaDb();
@@ -188,7 +195,13 @@ class dh {
   async get(t) {
     try {
       const box = await this._fileData();
-      if (box) return box.data[this._key(t)] ?? null;
+      if (box) {
+        const key = this._key(t);
+        if (box.data[key] !== void 0) return box.data[key];
+        const legacy = dh._legacyKey(key);
+        if (legacy !== key && box.data[legacy] !== void 0) return box.data[legacy];
+        return null;
+      }
     } catch (e) {
       console.warn("[FileStorage] gagal baca file, pakai IndexedDB:", e);
     }
@@ -200,7 +213,10 @@ class dh {
       if (box) {
         await dh._runExclusive(async () => {
           const fresh = await dh._readFile(box.h);
-          fresh[this._key(t)] = s;
+          const key = this._key(t);
+          const legacy = dh._legacyKey(key);
+          if (legacy !== key) delete fresh[legacy];
+          fresh[key] = s;
           await dh._writeFile(box.h, fresh);
         });
         return true;
@@ -216,7 +232,10 @@ class dh {
       if (box) {
         await dh._runExclusive(async () => {
           const fresh = await dh._readFile(box.h);
-          delete fresh[this._key(t)];
+          const key = this._key(t);
+          const legacy = dh._legacyKey(key);
+          delete fresh[key];
+          if (legacy !== key) delete fresh[legacy];
           await dh._writeFile(box.h, fresh);
         });
         return true;
@@ -231,9 +250,12 @@ class dh {
       const box = await this._fileData();
       if (box) {
         const prefix = `${this.dbName}|${this.storeName}|`;
+        const legacyPrefix = dh._legacyKey(prefix);
         await dh._runExclusive(async () => {
           const fresh = await dh._readFile(box.h);
-          for (const k of Object.keys(fresh)) if (k.startsWith(prefix)) delete fresh[k];
+          for (const k of Object.keys(fresh)) {
+            if (k.startsWith(prefix) || k.startsWith(legacyPrefix)) delete fresh[k];
+          }
           await dh._writeFile(box.h, fresh);
         });
         return true;
@@ -244,10 +266,12 @@ class dh {
     return this._idbClear();
   }
 
-  /* ---------- Fungsi untuk panel "Lokasi Database" ---------- */
+  /* ---------- Fungsi untuk modal "Lokasi Database" ---------- */
   static async _collectLegacy() {
     const out = {};
     const specs = [
+      ["aplikasikasir_offline_idb", ["sqlite_storage"]],
+      ["aplikasikasir_offline_backups_idb", ["backups"]],
       ["firdausservis_offline_idb", ["sqlite_storage"]],
       ["firdausservis_offline_backups_idb", ["backups"]]
     ];
@@ -289,7 +313,7 @@ class dh {
     }
     const h = await window.showSaveFilePicker({
       suggestedName: "databasesaya.fdb",
-      types: [{ description: "File database FirdausServis", accept: { "application/octet-stream": [".fdb", ".json"] } }]
+      types: [{ description: "File database Aplikasi Kasir", accept: { "application/octet-stream": [".fdb", ".json"] } }]
     });
     const data = await dh._collectLegacy();
     await dh._writeFile(h, data);
@@ -320,4 +344,4 @@ class dh {
     };
   }
 }
-window.__firdausStorage = dh;
+window.__aplikasikasirStorage = dh;

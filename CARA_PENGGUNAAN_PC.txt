@@ -1,5 +1,5 @@
 =============================================================
-PANDUAN APLIKASI FIRDAUS SERVIS UNTUK PC & LAPTOP (WINDOWS)
+PANDUAN APLIKASI KASIR UNTUK PC & LAPTOP (WINDOWS)
 =============================================================
 
 Aplikasi ini dapat langsung dijalankan di PC atau Laptop dengan OS Windows (Windows 7, 8, 10, 11) secara 100% OFFLINE tanpa perlu instalasi rumit (Portable).
@@ -8,15 +8,22 @@ Aplikasi ini dapat langsung dijalankan di PC atau Laptop dengan OS Windows (Wind
 CARA MENJALANKAN (SANGAT MUDAH):
 -------------------------------------------------------------
 1. Cukup klik ganda (double-click) file:
-   👉 FirdausServis.exe
+   👉 AplikasiKasir.exe
    (Atau file Buka-Aplikasi.bat)
 
 2. Aplikasi akan otomatis terbuka dalam jendela aplikasi desktop mandiri (tanpa address bar browser), siap digunakan untuk transaksi kasir POS, penerimaan servis, cetak nota, dan laporan keuangan.
 
-3. Di sudut kanan bawah taskbar (System Tray), akan muncul ikon Firdaus Servis. Anda bisa klik kanan ikon tersebut untuk:
+3. Di sudut kanan bawah taskbar (System Tray), akan muncul ikon Aplikasi Kasir. Anda bisa klik kanan ikon tersebut untuk:
    - "Buka Aplikasi" (Membuka kembali jendela jika tertutup)
    - "Buka di Browser Biasa"
    - "Keluar Aplikasi"
+
+-------------------------------------------------------------
+LOKASI DATABASE:
+-------------------------------------------------------------
+- Buka menu "Lainnya" → kartu "Lokasi Database" untuk memilih atau memindahkan file penyimpanan database.
+- Gunakan Chrome/Edge dan buka lewat http://localhost agar fitur pemilihan file tersedia.
+- Saat pertama kali memilih file, data lama di browser otomatis dipindahkan.
 
 -------------------------------------------------------------
 CETAK NOTA STRUK & FAKTUR A4 DI PC / LAPTOP:
@@ -30,9 +37,9 @@ CETAK NOTA STRUK & FAKTUR A4 DI PC / LAPTOP:
 OPSI INSTALASI PERMANEN PWA (SHORTCUT DESKTOP):
 -------------------------------------------------------------
 Jika Anda membuka aplikasi melalui browser Google Chrome atau Microsoft Edge:
-1. Klik ikon "Install Firdaus Servis" (ikon komputer dengan panah ke bawah) di ujung kanan address bar.
+1. Klik ikon "Install Aplikasi Kasir" (ikon komputer dengan panah ke bawah) di ujung kanan address bar.
 2. Klik "Install".
-3. Ikon Firdaus Servis akan otomatis muncul di Desktop dan Start Menu Windows Anda!
+3. Ikon Aplikasi Kasir akan otomatis muncul di Desktop dan Start Menu Windows Anda!
 
-Terima kasih atas kepercayaan Anda menggunakan Firdaus Servis.
+Terima kasih atas kepercayaan Anda menggunakan Aplikasi Kasir.
 =============================================================

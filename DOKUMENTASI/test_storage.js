@@ -84,10 +84,10 @@ ctx.window.window = ctx.window;
 vm.createContext(ctx);
 vm.runInContext(code, ctx);
 
-const S = ctx.window.__firdausStorage;
+const S = ctx.window.__aplikasikasirStorage;
 
 (async () => {
-  const store = new S("firdausservis_offline_idb", "sqlite_storage");
+  const store = new S("aplikasikasir_offline_idb", "sqlite_storage");
   const bytes = new Uint8Array([0, 1, 2, 250, 255, 128]);
 
 

@@ -2,7 +2,7 @@
    Tidak mengubah logika aplikasi. */
 (function () {
   function waitForStorage(cb, tries) {
-    if (window.__firdausStorage) return cb(window.__firdausStorage);
+    if (window.__aplikasikasirStorage) return cb(window.__aplikasikasirStorage);
     if ((tries || 0) > 100) return;
     setTimeout(function () { waitForStorage(cb, (tries || 0) + 1); }, 100);
   }

@@ -1,8 +1,10 @@
 __pycache__/
 *.pyc
 *.pyo
+DOKUMENTASI/_*.txt
+DOKUMENTASI/inspect_*.py
+DOKUMENTASI/finish_rebrand.py
+DOKUMENTASI/rebrand_docs.py
 DOKUMENTASI/_cg_dump.txt
-DOKUMENTASI/inspect_dead.py
-DOKUMENTASI/inspect_trial.py
 .DS_Store
 Thumbs.db

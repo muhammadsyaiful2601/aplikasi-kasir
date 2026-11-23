@@ -1,4 +1,4 @@
-# REKOMENDASI PERUBAHAN — FIRDAUS SERVIS (versi Anda)
+# REKOMENDASI PERUBAHAN — APLIKASI KASIR (versi Anda)
 
 Disusun setelah pembongkaran kode + patch tahap awal (database file & penghapusan trial).
 Prioritas: **P1 = sebaiknya segera**, **P2 = penting**, **P3 = peningkatan**.
@@ -57,8 +57,8 @@ Saat Anda kirim detail brand, titik yang perlu diubah:
 | P1 | `app/index.html` | `<title>`, `theme-color`, `apple-mobile-web-app-title` |
 | P1 | `app/manifest.json` | `name`, `short_name` |
 | P1 | `app/logo.png`, `favicon.png`, `app.ico` | siapkan 192×192 & 512×512 (sekarang deklarasi 512 tidak sesuai file) |
-| P1 | Bundle: nama toko default | `"Firdaus Servis"` di seeding settings |
-| P2 | Bundle: footer & pesan error | `"FirdausServis (Full Version Terdaftar) — Dikembangkan oleh Firdaus Web"`, `"Memuat FirdausServis..."`, `"Gagal Membuka Database"` |
+| P1 | Bundle: nama toko default | `"Aplikasi Kasir"` di seeding settings |
+| P2 | Bundle: footer & pesan error | `"AplikasiKasir (Full Version Terdaftar) — Dikembangkan oleh Aplikasi Kasir"`, `"Memuat AplikasiKasir..."`, `"Gagal Membuka Database"` |
 | P2 | `Buka-Aplikasi.bat` | `title` jendela |
 | P2 | `CARA_PENGGUNAAN_PC.txt` | seluruh teks brand lama |
 | P3 | Prefiks nota | `FS-` / `TRX-` → inisial brand (opsional; bukan sekadar teks, karena dipakai query `LIKE`) |
@@ -85,7 +85,7 @@ Saat Anda kirim detail brand, titik yang perlu diubah:
 ### P3 — Bersihkan aset duplikat
 - `sql-wasm.wasm` ≡ `sql-wasm-browser.wasm` (sengaja fallback).
 - `favicon.png` ≡ `logo.png`.
-- `firdausservis.apk` tidak dipakai untuk desktop — bisa dihapus dari project.
+- `aplikasi-kasir.apk` tidak dipakai untuk desktop — bisa dihapus dari project.
 
 ---
 

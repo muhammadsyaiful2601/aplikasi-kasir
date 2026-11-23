@@ -1,12 +1,12 @@
 """Patch bundle: ganti class dh (IdbStorage) dengan penyimpanan berbasis file.
 
-Ambil dari main-original.js (cadangan), tulis ke app/assets/main-DbOgN5j6.js.
+Ambil dari main-branded.js (cadangan), tulis ke app/assets/main-DbOgN5j6.js.
 Aman dijalankan berulang: selalu mulai dari cadangan.
 """
 import os
 
 BASE = r"D:\bongkar kode\PROJECT_BASE"
-src_path = os.path.join(BASE, "DOKUMENTASI", "main-original.js")
+src_path = os.path.join(BASE, "DOKUMENTASI", "main-branded.js")
 dst_path = os.path.join(BASE, "app", "assets", "main-DbOgN5j6.js")
 cls_path = os.path.join(BASE, "DOKUMENTASI", "storage-class.js")
 

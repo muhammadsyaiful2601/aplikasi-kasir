@@ -73,6 +73,18 @@ def patch(src: str) -> str:
     else:
         changes.append("watermark A4 sudah tidak ada")
 
+    # 2c. Watermark thermal versi teks (third block)
+    thermal2 = ('es()&&n.jsxs("div",{className:"bg-amber-100 text-amber-900 border '
+                'border-dashed border-amber-400 p-1 mb-2 text-center text-[9px] '
+                'font-black uppercase tracking-wider",children:'
+                '["*** VERSI TRIAL / DEMO EVALUASI ***",n.jsx("br",{}),'
+                '"TIDAK SAH UNTUK TRANSAKSI RESMI"]}),')
+    if thermal2 in src:
+        src = src.replace(thermal2, "")
+        changes.append("watermark thermal teks dihapus")
+    else:
+        changes.append("watermark thermal teks sudah tidak ada")
+
     # 3. Komponen pb -> null
     s = src.find("pb=()=>{")
     if s >= 0:

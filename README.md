@@ -1,4 +1,4 @@
-# Aplikasi Kasir & Servis — Offline Desktop
+# Aplikasi Kasir — Offline Desktop
 
 Aplikasi kasir (POS) dan servis HP/komputer yang berjalan **100% offline** di desktop Windows.
 
@@ -14,19 +14,19 @@ Aplikasi kasir (POS) dan servis HP/komputer yang berjalan **100% offline** di de
 
 ## Fitur utama
 
-- **Kasir/POS**: keranjang, diskon, tunai/transfer/QRIS, kembalian, faktur otomatis
+- **Kasir/POS**: keranjang, diskon, tunai/transfer/QRIS, kembalian, faktur otomatis (`AK-...`)
 - **Servis**: penerimaan, 8 status pengerjaan, jasa & sparepart, DP/pelunasan, garansi + klaim
 - **Stok**: katalog produk, opname, riwayat mutasi, peringatan stok menipis
 - **Keuangan**: laba kotor/bersih, arus kas, piutang, produk terlaris, ekspor CSV
-- **Cetak**: struk thermal ESC/POS (Bluetooth/RawBT/BLE/USB/AirPrint), faktur A4/PDF, WhatsApp
+- **Cetak**: struk thermal ESC/POS, faktur A4/PDF, WhatsApp
 - **Backup**: file JSON + auto-backup harian + pemulihan + sinkronisasi
 
 ## Menjalankan
 
-### Cara cepat (production)
-Double-click `FirdausServis.exe` atau `Buka-Aplikasi.bat`.
+### Production
+Double-click `AplikasiKasir.exe` atau `Buka-Aplikasi.bat`.
 
-### Mode preview (development, tanpa build)
+### Preview (development, tanpa build)
 Double-click `PREVIEW\jalankan-preview.bat`, lalu buka `http://localhost:5180` di Chrome/Edge.
 Setiap perubahan di folder `app\` cukup **Ctrl+F5**.
 
@@ -34,16 +34,19 @@ Setiap perubahan di folder `app\` cukup **Ctrl+F5**.
 
 ## Lokasi database
 
-Klik panel **"Lokasi Database"** di sisi kiri bawah aplikasi untuk memilih/memindah file database.
-Data lama dari browser otomatis dipindahkan saat pertama kali memilih file.
+Buka menu **Lainnya → Lokasi Database** untuk memilih atau memindah file database.
+Data lama otomatis dipindahkan saat pertama kali memilih file.
+
+## Rebranding
+
+Seluruh identitas lama sudah diganti menjadi **Aplikasi Kasir**: judul, manifest PWA,
+nama toko default, footer, splash, prefiks nota (`FS-` → `AK-`), nama file, dan kunci
+penyimpanan. Backup lama (`app:"FirdausServis"`) tetap diterima.
+
+Ulang patch: `python DOKUMENTASI\apply_all_patches.py`
 
 ## Dokumentasi
 
-- `PANDUAN_PROJECT.md` — panduan lengkap project & patch
-- `DOKUMENTASI/LAPORAN_UTAMA.md` — arsitektur & hasil pembongkaran kode
-- `DOKUMENTASI/REKOMENDASI.md` — rekomendasi pengembangan lanjutan
-- `DOKUMENTASI/apply_all_patches.py` — menerapkan ulang semua patch dari bundle asli
-
-## Catatan
-
-Mode trial/lisensi sudah dihilangkan dari bundle; aplikasi berjalan sebagai versi penuh tanpa watermark atau batas waktu.
+- `PANDUAN_PROJECT.md` — panduan project & patch
+- `DOKUMENTASI/LAPORAN_UTAMA.md` + laporan 03–06 — hasil pembongkaran kode asli
+- `DOKUMENTASI/REKOMENDASI.md` — rekomendasi lanjutan
