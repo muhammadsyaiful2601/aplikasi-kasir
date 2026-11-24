@@ -19,6 +19,7 @@ import apply_storage_patch  # noqa: F401  (menulis bundle dari main-branded.js)
 import apply_trial_patch
 import apply_menu_patch
 import apply_icon_patch
+import apply_logo_patch
 
 bundle = os.path.join(BASE, "app", "assets", "main-DbOgN5j6.js")
 src = open(bundle, encoding="utf-8").read()
@@ -34,5 +35,8 @@ print(" - menu 'Lokasi Database' ditambahkan")
 
 out = apply_icon_patch.patch(out)
 print(" - ikon template diganti ke SVG modern")
+
+out = apply_logo_patch.patch(out)
+print(" - logo baru dipakai di hero & warna disesuaikan")
 open(bundle, "w", encoding="utf-8").write(out)
 print("Ukuran final:", len(out), "byte")
